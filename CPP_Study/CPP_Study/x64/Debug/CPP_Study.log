@@ -1,4 +1,2 @@
-﻿  bit.cpp
-C:\Users\OS Lab\Maxwell\Cpp\study\CPP_Study\CPP_Study\bit.cpp(51,33): warning C4305: '초기화 중': 'int'에서 'bool'(으)로 잘립니다.
-C:\Users\OS Lab\Maxwell\Cpp\study\CPP_Study\CPP_Study\bit.cpp(52,34): warning C4805: '&': 연산에 'unsigned char' 형식과 'bool' 형식을 함께 사용하는 것은 안전하지 않습니다.
+﻿  flow.cpp
   CPP_Study.vcxproj -> C:\Users\OS Lab\Maxwell\Cpp\study\CPP_Study\x64\Debug\CPP_Study.exe
