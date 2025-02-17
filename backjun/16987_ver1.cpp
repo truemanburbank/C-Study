@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
 using namespace std;
 
 struct Egg
@@ -11,28 +9,27 @@ struct Egg
 
 int N = 0;
 int ans = 0;
+int cnt = 0;
+int IsCrashed[10];
+Egg eggs[10];
 
-vector<bool> IsCrashed;
-vector<Egg> eggs;
-
-void Solve(int idx, int cnt)
+void Solve(int idx)
 {
     // 마지막 계란까지 탐색 완료
     if (idx == N)
     {
-        if (ans < cnt)
-            ans = cnt;
+        ans = max(ans, cnt);
         return;
     }
 
     // 현재 계란이 이미 깨졌다면 다음으로 이동
-    if (IsCrashed[idx])
+    // 현재 계란 말고 다른 계란이 전부 깨져 있으면 다음으로 이동
+    if (IsCrashed[idx] || cnt == N - 1)
     {
-        Solve(idx + 1, cnt);
+        Solve(idx + 1);
         return;
     }
 
-    bool isAttacked = false;
     for (int i = 0; i < N; i++)
     {
         // 자기 자신이나 깨진 계란 제외
@@ -56,7 +53,7 @@ void Solve(int idx, int cnt)
             IsCrashed[i] = true;
         }
         
-        Solve(idx + 1, cnt);
+        Solve(idx + 1);
 
         // 원상 복구
         eggs[idx].DEF += eggs[i].ATK;
@@ -72,14 +69,7 @@ void Solve(int idx, int cnt)
             cnt--;
             IsCrashed[i] = false;
         }
-
-        isAttacked = true;
     }
-
-    // 계란이 공격을 한 번도 하지 못했을 때
-    // 자신 말고 다 깨져 있는 경우 
-    if (!isAttacked)
-        Solve(idx + 1, cnt);
 }
 
 
@@ -90,13 +80,11 @@ int main()
     std::cout.tie(0);
 
     std::cin >> N;
-    eggs.resize(N);
-    IsCrashed.resize(N);
 
     for (int i = 0; i < N; i++)
         std::cin >> eggs[i].DEF >> eggs[i].ATK;
 
-    Solve(0, 0);
+    Solve(0);
     
     std::cout << ans;
 
